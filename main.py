@@ -1,6 +1,4 @@
 import pygame
-import color
-import key
 
 from pygame import Surface
 from modules.nn import *
@@ -37,28 +35,28 @@ def get_new_data_point() -> None:
     correct = network_guess == actual_value
 
     # render
-    screen.fill(color.black)
+    screen.fill((0, 0, 0))
 
     text = font70.render('Image', True, (255, 127, 0))
     rect = text.get_rect(center=(250, 50))
     screen.blit(text, rect)
-    pygame.draw.rect(screen, color.grey, (100, 100, 300, 300))
+    pygame.draw.rect(screen, (127, 127, 127), (100, 100, 300, 300))
     screen.blit(data_point_img, (110, 110))
 
     text = font30.render('Guess', True, (255, 127, 0))
     rect = text.get_rect(center=(150, 525))
     screen.blit(text, rect)
-    text = font70.render(f'{network_guess}', True, color.green if correct else color.red)
+    text = font70.render(f'{network_guess}', True, (0, 200, 0) if correct else (200, 0, 0))
     rect = text.get_rect(center=(150, 600))
-    pygame.draw.rect(screen, color.green if correct else color.red, rect.inflate(40, 10), 10)
+    pygame.draw.rect(screen, (0, 200, 0) if correct else (200, 0, 0), rect.inflate(40, 10), 10)
     screen.blit(text, rect)
 
     text = font30.render('Actual', True, (255, 127, 0))
     rect = text.get_rect(center=(350, 525))
     screen.blit(text, rect)
-    text = font70.render(f'{actual_value}', True, color.blue)
+    text = font70.render(f'{actual_value}', True, (0, 0, 200))
     rect = text.get_rect(center=(350, 600))
-    pygame.draw.rect(screen, color.blue, rect.inflate(40, 10), 10)
+    pygame.draw.rect(screen, (0, 0, 200), rect.inflate(40, 10), 10)
     screen.blit(text, rect)
 
     pygame.display.flip()
@@ -78,7 +76,7 @@ while running:
                 running = False
             case pygame.KEYDOWN:
                 match event.key:
-                    case key.space:
+                    case pygame.K_SPACE:
                         get_new_data_point()
 
 
